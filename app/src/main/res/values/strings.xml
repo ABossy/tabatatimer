@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">grafaTabata</string>
+    <string name="TimerTabata">Tabata Timer</string>
+    <string name="choisirActivité">Veuillez choisir une activité</string>
+    <string name="title_activity_tabata2">TabataActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="CreateTabata">Création séance</string>
+</resources>
