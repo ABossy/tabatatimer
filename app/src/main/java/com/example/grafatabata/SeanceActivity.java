@@ -42,13 +42,7 @@ public class SeanceActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * ATTENTION L'utilisateur peut créer plusieurs CountDownTimer !!!
-     * -> Pensez à faire tester votre application par un tiers
-     *
-     * @param view
-     */
-    public void onStart(View view) {
+      public void onStart(View view) {
 
         timer = new CountDownTimer(updatedTime, 10) {
 

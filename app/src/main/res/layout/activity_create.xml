@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/linear"
     tools:context=".CreateActivity">
 
     <TextView
@@ -15,58 +16,11 @@
         android:textSize="@android:dimen/app_icon_size">
     </TextView>
 
-    <TextView
-        android:id="@+id/Categorie"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/Categorie"
-        android:layout_marginLeft="@android:dimen/app_icon_size"
-        android:textSize="15dp"></TextView>
-
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="115dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp">
-
-
-        <Button
-            android:id="@+id/ButtonLess"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="-"
-            android:onClick="ButtonLess">
-        </Button>
-
-        <TextView
-            android:id="@+id/afficherTempsTravail"
-            android:layout_width="100dp"
-            android:text="00"
-            android:textAlignment="center"
-            android:layout_height="wrap_content">
-
-        </TextView>
-
-        <Button
-            android:id="@+id/ButtonAdd"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="+"
-            android:onClick="ButtonAdd">
-        </Button>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/SauvegarderCreation"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
         android:text="Sauvegarder"
         android:onClick="sauvegarder"
         />
@@ -83,4 +37,4 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>

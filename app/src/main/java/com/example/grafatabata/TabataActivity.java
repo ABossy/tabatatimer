@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class TabataActivity extends AppCompatActivity {
-
+    // Data
+    private String[] tabataCycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabata);
+
+
     }
 
     // va nous permettre de selectionner directement une séance

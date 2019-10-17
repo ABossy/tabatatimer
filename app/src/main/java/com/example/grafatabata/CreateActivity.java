@@ -6,57 +6,45 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CreateActivity extends AppCompatActivity {
-
     // CONSTANTE
     private int tempsTravail = 10;
     TextView afficherTempsTravail;
-
-    // création de la séance
     public static final String TABLE_KEY = "table_key";
-    private CreateActivity seance;
 
-
+    // views
+    private LinearLayout createLayout;
+    private LinearLayout linearTMP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        // recuperation des objets
-        TextView category = (TextView)findViewById(R.id.Categorie);
-
-        // affichage texte
-        afficherTempsTravail = (TextView)findViewById(R.id.afficherTempsTravail);
-        afficherTempsTravail.setText(String.valueOf(tempsTravail));
-
-        int valeur = getIntent().getIntExtra(TABLE_KEY, 1);
-        setContentView(R.layout.activity_create);
-        LinearLayout linear = findViewById(R.id.linear);
-        //seance = new SeanceActivity(toto);
+        //Recuperation vue
+        createLayout = (LinearLayout) findViewById(R.id.linear);
 
 
-        for (int i =1; i <4;i++){
-            //création de la ligne temporaire
-            LinearLayout linearTMP=(LinearLayout)getLayoutInflater().inflate(R.layout.activity_create, null);
-            TextView toto = (TextView) linearTMP.findViewById(R.id.afficherTempsTravail);
-            // création du texte décrivant l'operation
-            toto.setText(seance.getText(i));
+        // Boucle pour la création de mes lignes workout.
+        for (int i =1; i <6;i++) {
+            linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_exercice, null);
+            afficherTempsTravail = (TextView)linearTMP.findViewById(R.id.afficherTempsTravail);
+            afficherTempsTravail.setText(String.valueOf(tempsTravail));
+            TextView Categorie = (TextView) linearTMP.findViewById(R.id.categorie);
+            Categorie.setText("");
+            Categorie.getText().toString();
+
             //ajout au linear principal
-            linear.addView(linearTMP);
-
+            createLayout.addView(linearTMP);
 
 
         }
-
-
     }
 
+    // decrementation du chrono
     public void ButtonLess(View view) {
         tempsTravail = tempsTravail -1;
         Log.d("text", String.valueOf(tempsTravail));
@@ -64,6 +52,7 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
+    // incrementation du chrono
     public void ButtonAdd(View view) {
         tempsTravail = tempsTravail +1;
         Log.d("text", String.valueOf(tempsTravail));
@@ -72,10 +61,12 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
-
+    // permet de sauvegarder une creation workout
     public void sauvegarder(View view) {
+        finish();
     }
 
+    // permet de valider la creation et de la jouer dans le chrono
     public void valider(View view) {
         Intent goToChrono = new Intent(this, SeanceActivity.class);
         goToChrono.putExtra("TABLE_KEY",tempsTravail * 1000);
