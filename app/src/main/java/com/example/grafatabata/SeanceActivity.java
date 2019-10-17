@@ -13,10 +13,12 @@ public class SeanceActivity extends AppCompatActivity {
     // CONSTANTE
     private final static long INITIAL_TIME = 5000;
 
+
     // VIEW
     private Button startButton;
     private Button pauseButton;
     private TextView timerValue;
+    int tempsChrono;
 
     // DATA
     private long updatedTime = INITIAL_TIME;
@@ -32,8 +34,12 @@ public class SeanceActivity extends AppCompatActivity {
         startButton = (Button) findViewById(R.id.startButton);
         pauseButton = (Button) findViewById(R.id.pauseButton);
 
-        //
+        // la valeur du chrono va prendre pour valeur la valeur passée.
+        tempsChrono = getIntent().getIntExtra("TABLE_KEY",1);
+        updatedTime = tempsChrono;
         miseAJour();
+        
+
     }
 
     /**
@@ -95,6 +101,8 @@ public class SeanceActivity extends AppCompatActivity {
         updatedTime = INITIAL_TIME;
 
         // Mise à jour graphique
+
+        updatedTime = tempsChrono;
         miseAJour();
 
     }

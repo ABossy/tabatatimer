@@ -58,6 +58,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="Creation "
+
         android:onClick="createSeance"
         />
 
