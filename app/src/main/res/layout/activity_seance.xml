@@ -8,12 +8,22 @@
     tools:context=".SeanceActivity">
 
     <TextView
+        android:id="@+id/etapeNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timerValue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:textSize="50sp"
+        android:background="@android:color/white"
+        android:text="" />
+    <TextView
         android:id="@+id/timerValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pauseButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="60dp"
         android:textSize="50sp"
         android:background="@android:color/white"
         android:text="00:00:00" />
@@ -40,6 +50,28 @@
         android:text="Pause"
         android:onClick="onPause"
         />
+
+    <TextView
+        android:id="@+id/cycleValue"
+        android:layout_width="145dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:background="@android:color/white"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tabataValue"
+        android:layout_width="145dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="230dp"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:background="@android:color/white"
+        android:text="" />
 
     <Button
         android:id="@+id/resetButton"

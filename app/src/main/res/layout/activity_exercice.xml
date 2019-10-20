@@ -11,9 +11,8 @@
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
         android:text="@string/Categorie"
-        android:textSize="15dp"></TextView>
+        android:textSize="18dp"></TextView>
 
 
         <Button

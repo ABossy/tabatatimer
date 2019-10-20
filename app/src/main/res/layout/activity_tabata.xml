@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/TimerTabata"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@android:color/holo_blue_dark"
         android:textAlignment="center"
         android:textSize="@android:dimen/app_icon_size">
     </TextView>
@@ -29,7 +29,7 @@
 
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="150dp">
 
     <ImageView
         android:id="@+id/playSeance"
@@ -56,10 +56,10 @@
         android:id="@+id/createButton"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="Creation "
-
         android:onClick="createSeance"
         />
 
