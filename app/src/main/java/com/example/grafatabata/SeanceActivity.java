@@ -8,13 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grafatabata.db.Tabata;
+
 import java.util.ArrayList;
 
 
 public class SeanceActivity extends AppCompatActivity {
-
-    // CONSTANTE
-    private final static long INITIAL_TIME = 5000;
 
     // VIEW
     private Button startButton;
@@ -23,24 +22,23 @@ public class SeanceActivity extends AppCompatActivity {
     private TextView timerValue;
     private TextView cycleValue;
     private TextView tabataValue;
-    int indexEtape = 0;
-    int workTime;
-    int cycleNb;
-    int tabataNb;
-    int prepareTime;
-    int restTime;
-    int longRestTime;
+    private Tabata tabataData;
+
 
 
     // DATA
-    private long updatedTime = INITIAL_TIME;
+    private long updatedTime ;
     private CountDownTimer timer;
     ArrayList tabata = new ArrayList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seance);
+
+        tabataData = new Tabata();
+
 
 ////////RECUPERATION DES VUES
         etapeNameValue = (TextView) findViewById(R.id.etapeNameValue);
@@ -52,35 +50,23 @@ public class SeanceActivity extends AppCompatActivity {
 
 
 ////////RECUPERATION DES INTENTIONS
-        prepareTime = getIntent().getIntExtra("prepareTime",1);
-        updatedTime = workTime;
+        tabataData = getIntent().getParcelableExtra("tabata");
 
-        workTime = getIntent().getIntExtra("workTime",1);
-        updatedTime = workTime;
-
-        restTime = getIntent().getIntExtra("restTime",1);
-        updatedTime = workTime;
-
-        longRestTime = getIntent().getIntExtra("longRestTime",1);
-        updatedTime = workTime;
-
-        cycleNb = getIntent().getIntExtra("cycleNb",1);
-        cycleValue.setText("Cycle    "+ cycleNb);
+        cycleValue.setText("Cycle    "+ tabataData.getCycleNb());
         cycleValue.getText().toString();
 
-        tabataNb = getIntent().getIntExtra("tabataNb",1);
-        tabataValue.setText("Tabata    "+ tabataNb);
+        tabataValue.setText("Tabata    "+ tabataData.getTabataNb());
         tabataValue.getText().toString();
-
+        updatedTime = tabataData.getPrepareTime();
 
 ////////INITIALISATION DE MA SEQUENCE
-        tabata.add(prepareTime);
-        for(int i =0; i<tabataNb;i++){
-            for(int j =0; j<cycleNb;j++){
-                tabata.add(workTime);
-                tabata.add(restTime);
+        tabata.add(tabataData.getPrepareTime());
+        for(int i =0; i<tabataData.getTabataNb();i++){
+            for(int j =0; j<tabataData.getCycleNb();j++){
+                tabata.add(tabataData.getWorkTime());
+                tabata.add(tabataData.getRestTime());
             }
-            tabata.add(longRestTime);
+            tabata.add(tabataData.getLongRestTime());
         }
 
         miseAJour();
@@ -89,7 +75,7 @@ public class SeanceActivity extends AppCompatActivity {
 
     public void onStart(View view) {
 
-        startEtape(tabata, indexEtape);
+        startEtape(tabata, tabataData.getIndexEtape());
     }
 
     // Mettre en pause le compteur
@@ -104,9 +90,9 @@ public class SeanceActivity extends AppCompatActivity {
         String etapeName;
         // position dans une sequence
         // si modPos = 0, alors le dernier element de la sequence = (repos long)
-        int modPos = indexEtape % (cycleNb*2 +1);
+        int modPos = tabataData.getIndexEtape() % (tabataData.getCycleNb()*2 +1);
 
-        if (indexEtape == 0 ) {
+        if (tabataData.getIndexEtape() == 0 ) {
             etapeName = "Préparation";
         } else if (modPos == 0) {
             etapeName = "Repos long";
@@ -141,11 +127,10 @@ public class SeanceActivity extends AppCompatActivity {
         }
 
         // Réinitialiser
-        updatedTime = INITIAL_TIME;
+         updatedTime = tabataData.getPrepareTime();
 
         // Mise à jour graphique
-
-        updatedTime = workTime;
+        tabataData.setIndexEtape(0);
         miseAJour();
 
     }
@@ -168,8 +153,8 @@ public class SeanceActivity extends AppCompatActivity {
                 updatedTime = 0;
                 miseAJour();
                 if (etape<tabata.size()-1) {
-                    indexEtape = etape+1;
-                    startEtape(tabata, indexEtape);
+                    tabataData.setIndexEtape(etape+1);
+                    startEtape(tabata, tabataData.getIndexEtape());
                 }
             }
         }.start();

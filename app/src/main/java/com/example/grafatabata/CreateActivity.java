@@ -9,21 +9,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.grafatabata.db.DatabaseClient;
+import com.example.grafatabata.db.Tabata;
 
 
 public class CreateActivity extends AppCompatActivity {
 ////// CONSTANTE
-    public static final String TABLE_PREP = "prepareTime";
-    public static final String TABLE_CYCLE = "cycleNb";
-    public static final String TABLE_WORK = "workTime";
-    public static final String TABLE_REST = "restTime";
-    public static final String TABLE_LREST = "longRestTime";
-    public static final String TABLE_NBTABATA ="tabataNb";
-
-    int tempsTravail[] = {1,10,10,10,20,30};
+    Tabata tabata = new Tabata();
+    int tempsTravail[] = {1,10,0,20,10,60};
     String tabataCycle[] = {"tabata","preparation", "cycle", "travail", "repos", "repos long"};
     TextView afficherTempsTravail[] = {null,null,null,null,null,null};
-
 
 
 
@@ -31,18 +26,21 @@ public class CreateActivity extends AppCompatActivity {
     private LinearLayout createLayout;
     private LinearLayout linearTMP;
     private LinearLayout button;
+    private DatabaseClient mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+///////////Récupération du DatabaseClient
+        mDb = DatabaseClient.getInstance(getApplicationContext());
+
+
+
 /////////Recuperation vue
         createLayout = (LinearLayout) findViewById(R.id.linear);
         button = (LinearLayout) findViewById(R.id.linearButton);
-
-
-
 
 
 ////////// Boucle pour la création de mes lignes workout.
@@ -65,8 +63,8 @@ public class CreateActivity extends AppCompatActivity {
             ((Button) linearTMP.findViewById(R.id.ButtonLess)).setTag(i);
         }
 
+}
 
-    }
 
 //////// Decrementation du temps de travail
     public void ButtonLess(View view) {
@@ -93,13 +91,14 @@ public class CreateActivity extends AppCompatActivity {
 
     // Permet de valider la creation et de la jouer dans le Chrono
     public void valider(View view) {
+        tabata.setTabataNb(tempsTravail[0]);
+        tabata.setPrepareTime(tempsTravail[1]*1000);
+        tabata.setCycleNb(tempsTravail[2]);
+        tabata.setWorkTime(tempsTravail[3] *1000);
+        tabata.setRestTime(tempsTravail[4]*1000);
+        tabata.setLongRestTime(tempsTravail[5] *1000);
         Intent goToChrono = new Intent(this, SeanceActivity.class);
-        goToChrono.putExtra("tabataNb",tempsTravail[0]);
-        goToChrono.putExtra("prepareTime",tempsTravail[1] *1000);
-        goToChrono.putExtra("cycleNb",tempsTravail[2]);
-        goToChrono.putExtra("workTime",tempsTravail[3] *1000);
-        goToChrono.putExtra("restTime",tempsTravail[4]*1000);
-        goToChrono.putExtra("longRestTime",tempsTravail[5] *1000);
+        goToChrono.putExtra("tabata",tabata);
         startActivity(goToChrono);
 
     }
