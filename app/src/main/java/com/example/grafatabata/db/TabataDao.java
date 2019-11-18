@@ -16,9 +16,6 @@ public interface TabataDao {
     @Insert
     void insert(Tabata tabata);
 
-    @Insert
-    long[] insertAll(Tabata... tabata);
-
     @Delete
     void delete(Tabata tabata);
 

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">grafaTabata</string>
+    <string name="app_name">Tabata Timer - Astrid Graf</string>
     <string name="TimerTabata">Tabata Timer</string>
-    <string name="choisirActivité">Veuillez choisir une activité</string>
+    <string name="choisirActivité">Choisir ou créer une activité</string>
     <string name="title_activity_tabata2">TabataActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

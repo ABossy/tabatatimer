@@ -23,7 +23,7 @@ public class DatabaseClient {
         //appDatabase = Room.databaseBuilder(context, AppDatabase.class, "MyToDos").build();
 
         // Ajout de la méthode addCallback permettant de populate (remplir) la base de données à sa création
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "tabata").addCallback(roomDatabaseCallback).build();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "tabata").addCallback(roomDatabaseCallback).fallbackToDestructiveMigration().build();
     }
 
     // Méthode statique
@@ -48,9 +48,7 @@ public class DatabaseClient {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            //
-            db.execSQL("INSERT INTO tabata (tabata, description) VALUES(\"seance 1\", \"description\");");
-            db.execSQL("INSERT INTO tabata (tabata, description) VALUES(\"seance 2\", \"description\");");
+
 
         }
     };

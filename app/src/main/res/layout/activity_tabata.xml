@@ -5,62 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TabataActivity"
-    app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
+    android:background="@drawable/main"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/TimerTabata"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textAlignment="center"
-        android:textSize="@android:dimen/app_icon_size">
-    </TextView>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choisirActivité"
-        android:textSize="20dp"
+        android:textColor="#000000"
+        android:background="@color/transparent"
+        android:textSize="30dp"
         android:textAlignment="center">
     </TextView>
-
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="150dp">
-
-    <ImageView
-        android:id="@+id/playSeance"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:onClick="playSeance"
-        android:src="@drawable/images" />
-
-    <TextView
-        android:id="@+id/textExo1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:fontFamily="sans-serif"
-        android:padding="1dp"
-        android:text="Seance 1"
-        android:textSize="20dp" />
-
-</androidx.cardview.widget.CardView>
 
 
     <Button
         android:id="@+id/createButton"
+        android:layout_gravity="center"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="Creation "
         android:onClick="createSeance"
         />
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
+    <LinearLayout android:orientation="vertical"
+        android:id="@+id/list_tabata"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"></LinearLayout>
+</ScrollView>
 </LinearLayout>

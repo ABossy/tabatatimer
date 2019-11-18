@@ -11,6 +11,7 @@ public class Tabata implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+    private String name;
     private int indexEtape = 0;
     private int workTime;
     private int cycleNb;
@@ -25,6 +26,7 @@ public class Tabata implements Parcelable {
 
     protected Tabata(Parcel in) {
         indexEtape = in.readInt();
+        name = in.readString();
         workTime = in.readInt();
         cycleNb = in.readInt();
         tabataNb = in.readInt();
@@ -47,6 +49,14 @@ public class Tabata implements Parcelable {
 
     public long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(long id) {
