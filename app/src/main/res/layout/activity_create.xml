@@ -18,6 +18,13 @@
         android:textSize="@android:dimen/app_icon_size">
     </TextView>
 
+    <EditText
+        android:id="@+id/nom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+
+    </EditText>
 
     <LinearLayout
         android:id="@+id/linearButton"
@@ -26,10 +33,7 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical"> </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp">
+
     <Button
         android:id="@+id/SauvegarderCreation"
         android:layout_width="210dp"
@@ -46,6 +50,5 @@
         android:onClick="valider"
         />
 
-    </LinearLayout>
 
 </LinearLayout>

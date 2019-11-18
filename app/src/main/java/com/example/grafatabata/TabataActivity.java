@@ -57,14 +57,16 @@ public class TabataActivity extends AppCompatActivity {
                        TextView tabata_list_rest_time = (TextView)linearlist.findViewById(R.id.tabata_list_rest_time);
                        TextView tabata_list_cylce_nb = (TextView)linearlist.findViewById(R.id.tabata_list_cylce_nb);
                        TextView tabata_list_tabata_nb = (TextView)linearlist.findViewById(R.id.tabata_list_tabata_nb);
-                       tabata_list_name.setText("Exercice" + t.getId());
-                       tabata_list_work_time.setText(String.valueOf(t.getWorkTime()/ 1000));
-                       tabata_list_rest_time.setText(String.valueOf(t.getRestTime()/1000));
-                       tabata_list_cylce_nb.setText(String.valueOf(t.getCycleNb()));
-                       tabata_list_tabata_nb.setText(String.valueOf(t.getTabataNb()));
+                       TextView tabata_list_long_rest_time = (TextView)linearlist.findViewById(R.id.tabata_list_long_rest_time);
+                       tabata_list_name.setText(t.getId() +" : " + t.getName());
+                       tabata_list_work_time.setText("Travail: " + String.valueOf(t.getWorkTime()/ 1000) + " sec");
+                       tabata_list_rest_time.setText("Repos: " + String.valueOf(t.getRestTime()/1000) + " sec");
+                       tabata_list_cylce_nb.setText("Cycle: " +  String.valueOf(t.getCycleNb()));
+                       tabata_list_tabata_nb.setText("Tabata: " +  String.valueOf(t.getTabataNb()));
+                       tabata_list_long_rest_time.setText("Repos long: " + String.valueOf(t.getLongRestTime()/1000) + " sec");
                     ((LinearLayout) findViewById(R.id.list_tabata)).addView(linearlist);
 
-                   }
+                }
 
             }
         }

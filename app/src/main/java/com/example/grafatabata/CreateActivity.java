@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,10 +84,13 @@ public class CreateActivity extends AppCompatActivity {
 
 /////////Sauver en base de données
     private void saveTask() {
+        final String nomSeance = ((EditText)findViewById(R.id.nom)).getText().toString();
+
         class SaveTask extends AsyncTask<Void, Void, Tabata> {
 
             @Override
             protected Tabata doInBackground(Void... voids) {
+                tabata.setName(nomSeance);
                 tabata.setTabataNb(tempsTravail[0]);
                 tabata.setPrepareTime(tempsTravail[1]*1000);
                 tabata.setCycleNb(tempsTravail[2]);
