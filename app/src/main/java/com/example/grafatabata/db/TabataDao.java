@@ -10,15 +10,18 @@ import java.util.List;
 
 @Dao
 public interface TabataDao {
-    @Query("SELECT * FROM tabata")
+    @Query("SELECT * FROM tabata ORDER BY id DESC")
     List<Tabata> getAll();
 
     @Insert
     void insert(Tabata tabata);
 
-    @Delete
-    void delete(Tabata tabata);
+    @Query("DELETE FROM tabata WHERE id = :id")
+    void delete(long id);
 
     @Update
     void update(Tabata tabata);
+
+    @Query("SELECT * FROM tabata WHERE id = :id")
+    Tabata findById(long id);
 }

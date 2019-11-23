@@ -2,6 +2,7 @@ package com.example.grafatabata.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -25,6 +26,8 @@ public class Tabata implements Parcelable {
     }
 
     protected Tabata(Parcel in) {
+
+
         indexEtape = in.readInt();
         name = in.readString();
         workTime = in.readInt();
@@ -33,6 +36,7 @@ public class Tabata implements Parcelable {
         prepareTime = in.readInt();
         restTime = in.readInt();
         longRestTime = in.readInt();
+
     }
 
     public static final Creator<Tabata> CREATOR = new Creator<Tabata>() {
@@ -127,6 +131,7 @@ public class Tabata implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(indexEtape);
+        dest.writeString(name);
         dest.writeInt(workTime);
         dest.writeInt(cycleNb);
         dest.writeInt(tabataNb);

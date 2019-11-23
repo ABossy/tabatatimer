@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.grafatabata.db.DatabaseClient;
 import com.example.grafatabata.db.Tabata;
 
-import java.util.List;
+
 
 
 public class CreateActivity extends AppCompatActivity {
@@ -40,47 +40,48 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+
 ///////////Récupération du DatabaseClient
-        mDb = DatabaseClient.getInstance(getApplicationContext());
+            mDb = DatabaseClient.getInstance(getApplicationContext());
 
 
 /////////Recuperation vue
-        createLayout = (LinearLayout) findViewById(R.id.linear);
-        button = (LinearLayout) findViewById(R.id.linearButton);
-
+            createLayout = (LinearLayout) findViewById(R.id.linear);
+            button = (LinearLayout) findViewById(R.id.linearButton);
 
 
 ////////// Boucle pour la création de mes lignes workout.
-        for (int i = 0; i < tabataCycle.length; i++) {
-            linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_exercice, null);
-            afficherTempsTravail[i] = (TextView) linearTMP.findViewById(R.id.afficherTempsTravail);
-            afficherTempsTravail[i].setText(String.valueOf(tempsTravail[i]));
-            TextView Categorie = (TextView) linearTMP.findViewById(R.id.categorie);
-            Categorie.setText(tabataCycle[i]);
-            Categorie.getText().toString();
+            for (int i = 0; i < tabataCycle.length; i++) {
+                linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_exercice, null);
+                afficherTempsTravail[i] = (TextView) linearTMP.findViewById(R.id.afficherTempsTravail);
+                afficherTempsTravail[i].setText(String.valueOf(tempsTravail[i]));
+                TextView Categorie = (TextView) linearTMP.findViewById(R.id.categorie);
+                Categorie.setText(tabataCycle[i]);
+                Categorie.getText().toString();
 
 
-            ////////////Ajout au linear principal
-            //createLayout.addView(linearTMP);
-            button.addView(linearTMP);
+                ////////////Ajout au linear principal
+                //createLayout.addView(linearTMP);
+                button.addView(linearTMP);
 
 
 ///////////Recuperation id boutons
-            ((Button) linearTMP.findViewById(R.id.ButtonAdd)).setTag(i);
-            ((Button) linearTMP.findViewById(R.id.ButtonLess)).setTag(i);
-            saveView = findViewById(R.id.SauvegarderCreation);
-            // Associer un événement au bouton save
-            saveView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    saveTask();
+                ((Button) linearTMP.findViewById(R.id.ButtonAdd)).setTag(i);
+                ((Button) linearTMP.findViewById(R.id.ButtonLess)).setTag(i);
+                saveView = findViewById(R.id.SauvegarderCreation);
+                // Associer un événement au bouton save
+                saveView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        saveTask();
 
-                }
-            });
+                    }
+                });
 
+            }
         }
 
-    }
+
 
 /////////Sauver en base de données
     private void saveTask() {
@@ -158,7 +159,6 @@ public class CreateActivity extends AppCompatActivity {
         startActivity(goToChrono);
 
     }
-
 
 
 }

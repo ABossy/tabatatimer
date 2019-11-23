@@ -5,8 +5,11 @@ import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.grafatabata.db.Tabata;
 
@@ -22,14 +25,18 @@ public class SeanceActivity extends AppCompatActivity {
     private TextView timerValue;
     private TextView cycleValue;
     private TextView tabataValue;
-    private Tabata tabataData;
+    private Tabata tabata;
+    private RelativeLayout chrono;
 
 
 
     // DATA
     private long updatedTime ;
     private CountDownTimer timer;
-    ArrayList tabata = new ArrayList();
+
+    private int indexCycle = 0;
+    private int indexTabata = 0;
+    ArrayList tabataArr = new ArrayList();
 
 
     @Override
@@ -37,7 +44,7 @@ public class SeanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seance);
 
-        tabataData = new Tabata();
+        tabata = new Tabata();
 
 
 ////////RECUPERATION DES VUES
@@ -47,26 +54,28 @@ public class SeanceActivity extends AppCompatActivity {
         pauseButton = (Button) findViewById(R.id.pauseButton);
         cycleValue = (TextView) findViewById(R.id.cycleValue);
         tabataValue = (TextView) findViewById(R.id.tabataValue);
-
+        chrono = (RelativeLayout) findViewById(R.id.activity_main);
 
 ////////RECUPERATION DES INTENTIONS
-        tabataData = getIntent().getParcelableExtra("tabata");
 
-        cycleValue.setText("Cycle    "+ tabataData.getCycleNb());
+        tabata = getIntent().getExtras().getParcelable("tabata");
+
+        Log.d("t2", String.valueOf(tabata.getTabataNb()));
+        cycleValue.setText("Cycle    "+ tabata.getCycleNb());
         cycleValue.getText().toString();
 
-        tabataValue.setText("Tabata    "+ tabataData.getTabataNb());
+        tabataValue.setText("Tabata    "+ tabata.getTabataNb());
         tabataValue.getText().toString();
-        updatedTime = tabataData.getPrepareTime();
+        updatedTime = tabata.getPrepareTime();
 
 ////////INITIALISATION DE MA SEQUENCE
-        tabata.add(tabataData.getPrepareTime());
-        for(int i =0; i<tabataData.getTabataNb();i++){
-            for(int j =0; j<tabataData.getCycleNb();j++){
-                tabata.add(tabataData.getWorkTime());
-                tabata.add(tabataData.getRestTime());
+        tabataArr.add(tabata.getPrepareTime());
+        for(int i =0; i<tabata.getTabataNb();i++){
+            for(int j =0; j<tabata.getCycleNb();j++){
+                tabataArr.add(tabata.getWorkTime());
+                tabataArr.add(tabata.getRestTime());
             }
-            tabata.add(tabataData.getLongRestTime());
+            tabataArr.add(tabata.getLongRestTime());
         }
 
         miseAJour();
@@ -75,7 +84,7 @@ public class SeanceActivity extends AppCompatActivity {
 
     public void onStart(View view) {
 
-        startEtape(tabata, tabataData.getIndexEtape());
+        startEtape(tabataArr, tabata.getIndexEtape());
     }
 
     // Mettre en pause le compteur
@@ -90,19 +99,29 @@ public class SeanceActivity extends AppCompatActivity {
         String etapeName;
         // position dans une sequence
         // si modPos = 0, alors le dernier element de la sequence = (repos long)
-        int modPos = tabataData.getIndexEtape() % (tabataData.getCycleNb()*2 +1);
-
-        if (tabataData.getIndexEtape() == 0 ) {
+        int modPos = tabata.getIndexEtape() % (tabata.getCycleNb()*2 +1);
+        Log.d( "r", String.valueOf(Math.floor(((tabata.getIndexEtape()-1) % (tabata.getCycleNb()*2 +1)) / tabata.getCycleNb())));
+        this.indexTabata = (int) Math.floor((tabata.getIndexEtape()-1) / (tabata.getCycleNb()*2 +1));
+        this.indexCycle = (int) Math.floor(((tabata.getIndexEtape()-1) % (tabata.getCycleNb()*2 +1)) / 2);
+        if (tabata.getIndexEtape() == 0 ) {
             etapeName = "Préparation";
+            chrono.setBackgroundResource(R.drawable.create);
         } else if (modPos == 0) {
+            //this.indexCycle = 0;
             etapeName = "Repos long";
+            chrono.setBackgroundResource(R.drawable.longrest);
         } else if ( modPos % 2 == 0 ) {
             etapeName = "Repos";
+            chrono.setBackgroundResource(R.drawable.rest);
         } else {
             etapeName = "Travail";
+            chrono.setBackgroundResource(R.drawable.background);
         }
 
         etapeNameValue.setText(etapeName);
+        cycleValue.setText("Cycle    "+ String.valueOf(tabata.getCycleNb() - this.indexCycle));
+        tabataValue.setText("Tabata    "+ String.valueOf(tabata.getTabataNb() - this.indexTabata));
+
 
         // timer de l'etape
         // Décompositions en secondes et minutes
@@ -127,10 +146,10 @@ public class SeanceActivity extends AppCompatActivity {
         }
 
         // Réinitialiser
-         updatedTime = tabataData.getPrepareTime();
+         updatedTime = tabata.getPrepareTime();
 
         // Mise à jour graphique
-        tabataData.setIndexEtape(0);
+        tabata.setIndexEtape(0);
         miseAJour();
 
     }
@@ -141,8 +160,8 @@ public class SeanceActivity extends AppCompatActivity {
         startActivity(menu);
     }
 
-    public void startEtape(final ArrayList tabata, final int etape){
-        timer = new CountDownTimer((int)tabata.get(etape), 10) {
+    public void startEtape(final ArrayList tabataArr, final int etape){
+        timer = new CountDownTimer((int)tabataArr.get(etape), 10) {
 
             public void onTick(long millisUntilFinished) {
                 updatedTime = millisUntilFinished;
@@ -152,9 +171,9 @@ public class SeanceActivity extends AppCompatActivity {
             public void onFinish() {
                 updatedTime = 0;
                 miseAJour();
-                if (etape<tabata.size()-1) {
-                    tabataData.setIndexEtape(etape+1);
-                    startEtape(tabata, tabataData.getIndexEtape());
+                if (etape<tabataArr.size()-1) {
+                    tabata.setIndexEtape(etape+1);
+                    startEtape(tabataArr, tabata.getIndexEtape());
                 }
             }
         }.start();

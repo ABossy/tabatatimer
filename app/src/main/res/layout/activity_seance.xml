@@ -53,22 +53,24 @@
 
     <TextView
         android:id="@+id/cycleValue"
-        android:layout_width="145dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="40sp"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:textSize="25sp"
         android:textAlignment="center"
         android:background="@android:color/white"
         android:text="" />
 
     <TextView
         android:id="@+id/tabataValue"
-        android:layout_width="145dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="230dp"
-        android:textSize="40sp"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:textSize="25sp"
         android:textAlignment="center"
         android:background="@android:color/white"
         android:text="" />

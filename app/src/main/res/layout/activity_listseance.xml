@@ -2,25 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="5dp">
 
 
     <LinearLayout
+        android:id="@+id/jouer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
+        android:onClick="playSeance"
         android:background="@color/transparent"
         android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/tabata_list_name"
-            android:onClick="playSeance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="350dp"
             android:textSize="30dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tabata_prepare_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"/>
 
         <TextView
@@ -63,6 +71,28 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/black"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageButton
+            android:id="@+id/removeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRemove"
+            android:src="@drawable/icon_poubelle" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onEdit"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_editer" />
+    </RelativeLayout>
 
     </LinearLayout>
 
