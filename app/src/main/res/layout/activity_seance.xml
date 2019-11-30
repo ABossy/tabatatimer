@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/timerValue"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:textSize="50sp"
+        android:layout_marginTop="85dp"
+        android:textSize="35dp"
         android:background="@android:color/white"
         android:text="" />
     <TextView
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/pauseButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
         android:textSize="50sp"
         android:background="@android:color/white"
         android:text="00:00:00" />

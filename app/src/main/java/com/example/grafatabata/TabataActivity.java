@@ -19,7 +19,7 @@ public class TabataActivity extends AppCompatActivity {
 
     private DatabaseClient mDb;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +60,13 @@ public class TabataActivity extends AppCompatActivity {
                     LinearLayout idSeance = (LinearLayout)linearlist.findViewById(R.id.jouer);
                     idSeance.setTag(t.getId());
                     ((TextView) linearlist.findViewById(R.id.tabata_list_name)).setText(t.getName());
-                    ((TextView)linearlist.findViewById(R.id.tabata_list_tabata_nb)).setText("Tabata: "+t.getTabataNb());
-                    ((TextView)linearlist.findViewById(R.id.tabata_list_cylce_nb)).setText("Nb Cycle: "+ t.getCycleNb());
-                    ((TextView) linearlist.findViewById(R.id.tabata_prepare_time)).setText("Preparation: " + t.getPrepareTime()/1000);
-                    ((TextView)linearlist.findViewById(R.id.tabata_list_work_time)).setText("Travail: " + t.getWorkTime()/1000);
-                    ((TextView)linearlist.findViewById(R.id.tabata_list_rest_time)).setText("Repos: " + t.getRestTime()/1000);
-                    ((TextView)linearlist.findViewById(R.id.tabata_list_long_rest_time)).setText("Repos long: "+ t.getLongRestTime()/1000);
-                    ((ImageButton)linearlist.findViewById(R.id.editButton)).setTag(t.getId());
+                    ((TextView)linearlist.findViewById(R.id.tabata_list_tabata_nb)).setText("Séquence: "+t.getTabataNb());
+                    ((TextView)linearlist.findViewById(R.id.tabata_list_cylce_nb)).setText("Cycle: "+ t.getCycleNb());
+                    ((TextView) linearlist.findViewById(R.id.tabata_prepare_time)).setText("Préparation: " + t.getPrepareTime()/1000 + "sec");
+                    ((TextView)linearlist.findViewById(R.id.tabata_list_work_time)).setText("Travail: " + t.getWorkTime()/1000 + "sec");
+                    ((TextView)linearlist.findViewById(R.id.tabata_list_rest_time)).setText("Repos: " + t.getRestTime()/1000 + "sec");
+                    ((TextView)linearlist.findViewById(R.id.tabata_list_long_rest_time)).setText("Repos long: "+ t.getLongRestTime()/1000 + "sec");
+                    //((ImageButton)linearlist.findViewById(R.id.editButton)).setTag(t.getId());
                     ((ImageButton)linearlist.findViewById(R.id.removeButton)).setTag(t.getId());
                     ((LinearLayout) findViewById(R.id.list_tabata)).addView(linearlist);
 
@@ -153,9 +153,4 @@ public class TabataActivity extends AppCompatActivity {
     }
 
 
-
-
-
-    public void onEdit(View view) {
-    }
 }

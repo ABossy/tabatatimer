@@ -24,4 +24,6 @@ public interface TabataDao {
 
     @Query("SELECT * FROM tabata WHERE id = :id")
     Tabata findById(long id);
+
+
 }

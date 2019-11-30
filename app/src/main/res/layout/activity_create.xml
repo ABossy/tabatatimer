@@ -15,7 +15,7 @@
         android:text="@string/CreateTabata"
         android:textAlignment="center"
         android:textColor="#FCFCFC"
-        android:textSize="@android:dimen/app_icon_size">
+        android:textSize="30dp">
     </TextView>
 
     <EditText
@@ -27,30 +27,26 @@
 
     </EditText>
 
-
     <LinearLayout
         android:id="@+id/linearButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"> </LinearLayout>
-
-
+        android:orientation="vertical">
+    </LinearLayout>
     <Button
         android:id="@+id/SauvegarderCreation"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:text="Sauvegarder"
         android:onClick="saveTask"
         />
 
     <Button
         android:id="@+id/ValiderCreation"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:text="Valider"
-        android:onClick="valider"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Jouer"
+        android:onClick="jouer"
         />
-
 
 </LinearLayout>

@@ -5,9 +5,10 @@ import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.media.MediaPlayer;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
@@ -27,15 +28,15 @@ public class SeanceActivity extends AppCompatActivity {
     private TextView tabataValue;
     private Tabata tabata;
     private RelativeLayout chrono;
-
+    private MediaPlayer mediaPlayer;
 
 
     // DATA
     private long updatedTime ;
     private CountDownTimer timer;
-
     private int indexCycle = 0;
     private int indexTabata = 0;
+    private int etapeCourrante = -1;
     ArrayList tabataArr = new ArrayList();
 
 
@@ -55,6 +56,7 @@ public class SeanceActivity extends AppCompatActivity {
         cycleValue = (TextView) findViewById(R.id.cycleValue);
         tabataValue = (TextView) findViewById(R.id.tabataValue);
         chrono = (RelativeLayout) findViewById(R.id.activity_main);
+
 
 ////////RECUPERATION DES INTENTIONS
 
@@ -83,8 +85,8 @@ public class SeanceActivity extends AppCompatActivity {
     }
 
     public void onStart(View view) {
-
         startEtape(tabataArr, tabata.getIndexEtape());
+        this.joueSon("prep");
     }
 
     // Mettre en pause le compteur
@@ -94,8 +96,32 @@ public class SeanceActivity extends AppCompatActivity {
         }
     }
 
+    // Acceder au dossier raw
+    private int getRawResIdByName(String id) {
+        String pkgName = this.getPackageName();
+        // Return 0 if not found.
+        int resID = this.getResources().getIdentifier(id, "raw", pkgName);
+        return resID;
+    }
+
+    // Gestion de la partie Son
+    private void joueSon(String id) {
+        if (this.mediaPlayer!= null) {
+            this.mediaPlayer.stop();
+            this.mediaPlayer.release();
+            this.mediaPlayer = null;
+        }
+        this.mediaPlayer=   MediaPlayer.create(this, this.getRawResIdByName(id));
+        this.mediaPlayer.start();
+    }
+
     // Mise à jour graphique
     private void miseAJour() {
+        boolean joueSon = false;
+        if (this.etapeCourrante != tabata.getIndexEtape()){
+            this.etapeCourrante = tabata.getIndexEtape();
+            joueSon = true;
+        }
         String etapeName;
         // position dans une sequence
         // si modPos = 0, alors le dernier element de la sequence = (repos long)
@@ -106,16 +132,21 @@ public class SeanceActivity extends AppCompatActivity {
         if (tabata.getIndexEtape() == 0 ) {
             etapeName = "Préparation";
             chrono.setBackgroundResource(R.drawable.create);
+            if(joueSon) this.joueSon("welcome");
         } else if (modPos == 0) {
             //this.indexCycle = 0;
             etapeName = "Repos long";
             chrono.setBackgroundResource(R.drawable.longrest);
+            if(joueSon) this.joueSon("longrest");
         } else if ( modPos % 2 == 0 ) {
             etapeName = "Repos";
             chrono.setBackgroundResource(R.drawable.rest);
+            if(joueSon) this.joueSon("repos");
         } else {
             etapeName = "Travail";
             chrono.setBackgroundResource(R.drawable.background);
+            if(joueSon) this.joueSon("work");
+
         }
 
         etapeNameValue.setText(etapeName);
@@ -178,4 +209,8 @@ public class SeanceActivity extends AppCompatActivity {
             }
         }.start();
     }
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.grafatabata;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -121,15 +122,14 @@ public class CreateActivity extends AppCompatActivity {
         st.execute();
     }
 
-
-
 //// Decrementation du temps de travail
     public void ButtonLess(View view) {
         int index = (int)view.getTag();
-        tempsTravail[index] = tempsTravail[index]-1;
+        if (tempsTravail[index]> 0){
+            tempsTravail[index] = tempsTravail[index]-1;
+        }
         afficherTempsTravail[index].setText(String.valueOf(tempsTravail[index]));
     }
-
 
 
 /////// Incrementation du temps de travail
@@ -141,13 +141,8 @@ public class CreateActivity extends AppCompatActivity {
     }
 
 
-    // Permet de sauvegarder une creation workout
-    public void sauvegarder(View view) {
-        finish();
-    }
-
-    // Permet de valider la creation et de la jouer dans le Chrono
-    public void valider(View view) {
+    // Permet de jouer la creation dans le Chrono
+    public void jouer(View view) {
         tabata.setTabataNb(tempsTravail[0]);
         tabata.setPrepareTime(tempsTravail[1]*1000);
         tabata.setCycleNb(tempsTravail[2]);
@@ -159,6 +154,12 @@ public class CreateActivity extends AppCompatActivity {
         startActivity(goToChrono);
 
     }
+
+
+    public void modifier(View view) {
+    }
+
+
 
 
 }
