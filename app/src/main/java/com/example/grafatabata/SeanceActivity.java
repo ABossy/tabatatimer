@@ -29,6 +29,9 @@ public class SeanceActivity extends AppCompatActivity {
     private Tabata tabata;
     private RelativeLayout chrono;
     private MediaPlayer mediaPlayer;
+    // initialisation de l'etat du chrono.
+    private int playState = -1;
+
 
 
     // DATA
@@ -56,13 +59,13 @@ public class SeanceActivity extends AppCompatActivity {
         cycleValue = (TextView) findViewById(R.id.cycleValue);
         tabataValue = (TextView) findViewById(R.id.tabataValue);
         chrono = (RelativeLayout) findViewById(R.id.activity_main);
-
+///////On cache le bouton pause
+        pauseButton.setAlpha(0f);
 
 ////////RECUPERATION DES INTENTIONS
 
         tabata = getIntent().getExtras().getParcelable("tabata");
 
-        Log.d("t2", String.valueOf(tabata.getTabataNb()));
         cycleValue.setText("Cycle    "+ tabata.getCycleNb());
         cycleValue.getText().toString();
 
@@ -84,15 +87,33 @@ public class SeanceActivity extends AppCompatActivity {
 
     }
 
+////////// OnClick du bouton start
     public void onStart(View view) {
-        startEtape(tabataArr, tabata.getIndexEtape());
-        this.joueSon("prep");
+        if (playState==-1){
+            playState = 1;
+            startButton.setAlpha(0f);
+            pauseButton.setAlpha(1f);
+            startEtape(tabataArr, tabata.getIndexEtape(), updatedTime);
+            this.joueSon("prep");
+        }
     }
 
     // Mettre en pause le compteur
     public void onPause(View view) {
-        if (timer != null) {
-            timer.cancel(); // Arrete le CountDownTimer
+        if (playState==1) {
+            playState = 0;
+            pauseButton.setText("Resume");
+
+            if (timer != null) {
+                timer.cancel(); // Arrete le CountDownTimer
+            }
+            return;
+        }
+        if (playState==0) {
+            playState = 1;
+            pauseButton.setText("Pause");
+            startEtape(tabataArr, tabata.getIndexEtape(), updatedTime);
+            return;
         }
     }
 
@@ -177,7 +198,10 @@ public class SeanceActivity extends AppCompatActivity {
         }
 
         // Réinitialiser
-         updatedTime = tabata.getPrepareTime();
+        startButton.setAlpha(1f);
+        pauseButton.setAlpha(0f);
+        playState = -1;
+        updatedTime = tabata.getPrepareTime();
 
         // Mise à jour graphique
         tabata.setIndexEtape(0);
@@ -191,8 +215,12 @@ public class SeanceActivity extends AppCompatActivity {
         startActivity(menu);
     }
 
-    public void startEtape(final ArrayList tabataArr, final int etape){
-        timer = new CountDownTimer((int)tabataArr.get(etape), 10) {
+    public void startEtape(final ArrayList tabataArr, final int etape, final long remainingTime){
+        long time = (int)tabataArr.get(etape);
+        if (remainingTime > 0 && remainingTime < time ) {
+            time = remainingTime;
+        }
+        timer = new CountDownTimer(time, 10) {
 
             public void onTick(long millisUntilFinished) {
                 updatedTime = millisUntilFinished;
@@ -204,7 +232,7 @@ public class SeanceActivity extends AppCompatActivity {
                 miseAJour();
                 if (etape<tabataArr.size()-1) {
                     tabata.setIndexEtape(etape+1);
-                    startEtape(tabataArr, tabata.getIndexEtape());
+                    startEtape(tabataArr, tabata.getIndexEtape(), 0);
                 }
             }
         }.start();

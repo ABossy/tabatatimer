@@ -33,7 +33,7 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="38dp"
+        android:layout_marginLeft="125dp"
         android:text="Start"
         android:onClick="onStart"
         />
@@ -45,7 +45,7 @@
         android:layout_alignBaseline="@id/startButton"
         android:layout_alignBottom="@id/startButton"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="38dp"
+        android:layout_marginRight="125dp"
         android:text="Pause"
         android:onClick="onPause"
         />
