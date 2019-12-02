@@ -66,7 +66,6 @@ public class TabataActivity extends AppCompatActivity {
                     ((TextView)linearlist.findViewById(R.id.tabata_list_work_time)).setText("Travail: " + t.getWorkTime()/1000 + "sec");
                     ((TextView)linearlist.findViewById(R.id.tabata_list_rest_time)).setText("Repos: " + t.getRestTime()/1000 + "sec");
                     ((TextView)linearlist.findViewById(R.id.tabata_list_long_rest_time)).setText("Repos long: "+ t.getLongRestTime()/1000 + "sec");
-                    //((ImageButton)linearlist.findViewById(R.id.editButton)).setTag(t.getId());
                     ((ImageButton)linearlist.findViewById(R.id.removeButton)).setTag(t.getId());
                     ((LinearLayout) findViewById(R.id.list_tabata)).addView(linearlist);
 
@@ -88,7 +87,7 @@ public class TabataActivity extends AppCompatActivity {
     }
 
 /////PERMET DE JOUER UNE SEANCE DE LA LISTE EN FONCTION DE SON ID
-    public void findById(final long id){
+    public void findById(final long id, final String mode){
         class FindById extends AsyncTask<Void, Void, Tabata>{
 
             @Override
@@ -103,18 +102,33 @@ public class TabataActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Tabata tabata) {
                 super.onPostExecute(tabata);
+                if (mode == "start"){
 
-                startTimer(tabata);
+                    startTimer(tabata);
+                } else if(mode == "update"){
+
+                    updateTimer(tabata);
+                }
             }
         }
         FindById findbyid = new FindById();
         findbyid.execute();
     }
 
-/////////Va nous permettre de selectionner directement une séance via son id dans la liste
-    public void playSeance(View view) {
-        findById(Long.parseLong(view.getTag().toString()));
+    private void updateTimer(Tabata tabata) {
+        Intent update = new Intent(this, CreateActivity.class);
+        update.putExtra("tabata", tabata);
+        startActivity(update);
+    }
 
+    /////////Va nous permettre de selectionner directement une séance via son id dans la liste
+    public void playSeance(View view) {
+        findById(Long.parseLong(view.getTag().toString()), "start");
+
+    }
+
+    public void onUpdate(View view){
+        findById(Long.parseLong(view.getTag().toString()),"update");
     }
 
     private void startTimer(Tabata tabata) {

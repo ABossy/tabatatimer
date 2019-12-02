@@ -6,8 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/linear"
-    android:background="@drawable/createseance"
+    android:background="@drawable/landscape"
     tools:context=".CreateActivity">
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -18,16 +20,12 @@
         android:textSize="30dp">
     </TextView>
 
-
     <EditText
         android:id="@+id/nom"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:textColor="#FCFCFC"
-        >
-
-    </EditText>
-
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,30 +36,33 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
-    <Button
-        android:id="@+id/SauvegarderCreation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Sauvegarder"
-        android:onClick="onSaveTask"
-        />
+            <LinearLayout
+                android:id="@+id/linearButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
-    <Button
-        android:id="@+id/ValiderCreation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Jouer"
-        android:onClick="jouer"
-        />
+            <Button
+                android:id="@+id/SauvegarderCreation"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Sauvegarder"
+                android:onClick="onSaveTask"
+                />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/ValiderCreation"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Jouer"
+                android:onClick="jouer"
+                />
+
+        </LinearLayout>
+
 
     </ScrollView>
+
+
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.media.MediaPlayer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
@@ -34,6 +35,7 @@ public class SeanceActivity extends AppCompatActivity {
 
 
 
+
     // DATA
     private long updatedTime ;
     private CountDownTimer timer;
@@ -49,7 +51,6 @@ public class SeanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seance);
 
         tabata = new Tabata();
-
 
 ////////RECUPERATION DES VUES
         etapeNameValue = (TextView) findViewById(R.id.etapeNameValue);
@@ -83,7 +84,14 @@ public class SeanceActivity extends AppCompatActivity {
             tabataArr.add(tabata.getLongRestTime());
         }
 
+
         miseAJour();
+        if(savedInstanceState !=null){
+            this.etapeCourrante = savedInstanceState.getInt("etape courante");
+            tabata.setIndexEtape(etapeCourrante);
+            this.updatedTime = savedInstanceState.getLong("time");
+            onStart(new View(this));
+        }
 
     }
 
@@ -94,11 +102,10 @@ public class SeanceActivity extends AppCompatActivity {
             startButton.setAlpha(0f);
             pauseButton.setAlpha(1f);
             startEtape(tabataArr, tabata.getIndexEtape(), updatedTime);
-            this.joueSon("prep");
         }
     }
 
-    // Mettre en pause le compteur
+//////// Mettre en pause le compteur
     public void onPause(View view) {
         if (playState==1) {
             playState = 0;
@@ -117,7 +124,7 @@ public class SeanceActivity extends AppCompatActivity {
         }
     }
 
-    // Acceder au dossier raw
+/////// Acceder au dossier raw
     private int getRawResIdByName(String id) {
         String pkgName = this.getPackageName();
         // Return 0 if not found.
@@ -125,7 +132,7 @@ public class SeanceActivity extends AppCompatActivity {
         return resID;
     }
 
-    // Gestion de la partie Son
+/////// Gestion de la partie Son
     private void joueSon(String id) {
         if (this.mediaPlayer!= null) {
             this.mediaPlayer.stop();
@@ -136,7 +143,7 @@ public class SeanceActivity extends AppCompatActivity {
         this.mediaPlayer.start();
     }
 
-    // Mise à jour graphique
+/////// Mise à jour graphique
     private void miseAJour() {
         boolean joueSon = false;
         if (this.etapeCourrante != tabata.getIndexEtape()){
@@ -175,7 +182,7 @@ public class SeanceActivity extends AppCompatActivity {
         tabataValue.setText("Tabata    "+ String.valueOf(tabata.getTabataNb() - this.indexTabata));
 
 
-        // timer de l'etape
+/////////// timer de l'etape
         // Décompositions en secondes et minutes
         int secs = (int) (updatedTime / 1000);
         int mins = secs / 60;
@@ -238,7 +245,12 @@ public class SeanceActivity extends AppCompatActivity {
         }.start();
     }
 
-
-
-
+// Permet de conserver les donner de l'etape chrono
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+      super.onSaveInstanceState(outState);
+        outState.putInt("etape courante", etapeCourrante);
+        timer.cancel();
+        outState.putLong("time", updatedTime);
+    }
 }

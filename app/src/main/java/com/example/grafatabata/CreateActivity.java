@@ -1,6 +1,5 @@
 package com.example.grafatabata;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -41,10 +40,8 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-
-///////////Récupération du DatabaseClient
+////////////Récupération du DatabaseClient
             mDb = DatabaseClient.getInstance(getApplicationContext());
-
 
 /////////Recuperation vue
             createLayout = (LinearLayout) findViewById(R.id.linear);
@@ -82,9 +79,7 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
 
-
-
-/////////Sauver en base de données
+////////////Sauver en base de données
     private void saveTask() {
         final String nomSeance = ((EditText)findViewById(R.id.nom)).getText().toString();
 
@@ -94,15 +89,15 @@ public class CreateActivity extends AppCompatActivity {
             protected Tabata doInBackground(Void... voids) {
                 tabata.setName(nomSeance);
                 tabata.setTabataNb(tempsTravail[0]);
-                tabata.setPrepareTime(tempsTravail[1]*1000);
+                tabata.setPrepareTime(tempsTravail[1] * 1000);
                 tabata.setCycleNb(tempsTravail[2]);
-                tabata.setWorkTime(tempsTravail[3] *1000);
-                tabata.setRestTime(tempsTravail[4]*1000);
-                tabata.setLongRestTime(tempsTravail[5] *1000);
+                tabata.setWorkTime(tempsTravail[3] * 1000);
+                tabata.setRestTime(tempsTravail[4] * 1000);
+                tabata.setLongRestTime(tempsTravail[5] * 1000);
                 // adding to database
-                mDb.getAppDatabase()
-                        .tabataDao()
-                        .insert(tabata);
+                    mDb.getAppDatabase()
+                            .tabataDao()
+                            .insert(tabata);
 
                 return tabata;
             }
@@ -113,16 +108,27 @@ public class CreateActivity extends AppCompatActivity {
 
                 // Quand la tache est créée, on arrête l'activité AddTaskActivity (on l'enleve de la pile d'activités)
                 setResult(RESULT_OK);
+
                 finish();
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             }
-        }
 
+        }
         SaveTask st = new SaveTask();
         st.execute();
+
     }
 
-//// Decrementation du temps de travail
+
+//////////// Incrementation du temps de travail
+    public void ButtonAdd(View view) {
+        int index = (int)view.getTag();
+        tempsTravail[index] = tempsTravail[index]+1;
+        afficherTempsTravail[index].setText(String.valueOf(tempsTravail[index]));
+
+    }
+
+/////// Decrementation du temps de travail
     public void ButtonLess(View view) {
         int index = (int)view.getTag();
         if (tempsTravail[index]> 0){
@@ -132,16 +138,8 @@ public class CreateActivity extends AppCompatActivity {
     }
 
 
-/////// Incrementation du temps de travail
-    public void ButtonAdd(View view) {
-        int index = (int)view.getTag();
-        tempsTravail[index] = tempsTravail[index]+1;
-        afficherTempsTravail[index].setText(String.valueOf(tempsTravail[index]));
 
-    }
-
-
-    // Permet de jouer la creation dans le Chrono
+//////// Permet de jouer la creation dans le Chrono
     public void jouer(View view) {
         tabata.setTabataNb(tempsTravail[0]);
         tabata.setPrepareTime(tempsTravail[1]*1000);
@@ -156,10 +154,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
 
-    public void modifier(View view) {
+    public void onSaveTask(View view) {
+        saveTask();
     }
-
-
-
-
 }
