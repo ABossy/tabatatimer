@@ -27,7 +27,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:onClick="ButtonLess"
-            android:text="-"/>
+            android:background="@drawable/round_button"
+            android:text="-"
+            android:textSize="25dp"/>
 
         <TextView
             android:id="@+id/afficherTempsTravail"
@@ -45,6 +47,8 @@
             android:id="@+id/ButtonAdd"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:background="@drawable/round_button"
+            android:textSize="25dp"
             android:text="+"
             android:onClick="ButtonAdd">
         </Button>

@@ -84,7 +84,6 @@ public class SeanceActivity extends AppCompatActivity {
             tabataArr.add(tabata.getLongRestTime());
         }
 
-
         miseAJour();
         if(savedInstanceState !=null){
             this.etapeCourrante = savedInstanceState.getInt("etape courante");
@@ -160,9 +159,7 @@ public class SeanceActivity extends AppCompatActivity {
         if (tabata.getIndexEtape() == 0 ) {
             etapeName = "Préparation";
             chrono.setBackgroundResource(R.drawable.create);
-            if(joueSon) this.joueSon("welcome");
         } else if (modPos == 0) {
-            //this.indexCycle = 0;
             etapeName = "Repos long";
             chrono.setBackgroundResource(R.drawable.longrest);
             if(joueSon) this.joueSon("longrest");
@@ -245,12 +242,28 @@ public class SeanceActivity extends AppCompatActivity {
         }.start();
     }
 
-// Permet de conserver les donner de l'etape chrono
+/// Permet de conserver les donner de l'etape chrono
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
       super.onSaveInstanceState(outState);
         outState.putInt("etape courante", etapeCourrante);
         timer.cancel();
         outState.putLong("time", updatedTime);
+    }
+
+////Gestion du retour sur la home page (stop de la seance)
+    @Override
+    public void onBackPressed(){
+        if (this.mediaPlayer != null) {
+            this.mediaPlayer.stop();
+            this.mediaPlayer.release();
+            this.mediaPlayer = null;
+        }
+
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = null;
+        finish();
     }
 }

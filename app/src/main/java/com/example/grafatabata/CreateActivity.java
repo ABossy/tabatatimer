@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.grafatabata.Libraries.RepeatListener;
 import com.example.grafatabata.db.DatabaseClient;
 import com.example.grafatabata.db.Tabata;
 
@@ -21,7 +22,7 @@ import com.example.grafatabata.db.Tabata;
 public class CreateActivity extends AppCompatActivity {
 ////// CONSTANTE
     Tabata tabata = new Tabata();
-    int tempsTravail[] = {0,0,0,0,0,0};
+    int tempsTravail[] = {1,10,1,20,10,40};
     String tabataCycle[] = {"tabata","preparation", "cycle", "travail", "repos", "repos long"};
     TextView afficherTempsTravail[] = {null,null,null,null,null,null};
 
@@ -75,6 +76,19 @@ public class CreateActivity extends AppCompatActivity {
 
                     }
                 });
+
+                ((Button) linearTMP.findViewById(R.id.ButtonAdd)).setOnTouchListener(new RepeatListener(400, 70, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ButtonAdd(view);
+                    }
+                }));
+                ((Button) linearTMP.findViewById(R.id.ButtonLess)).setOnTouchListener(new RepeatListener(400, 70, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ButtonLess(view);
+                    }
+                }));
 
             }
         }
@@ -131,7 +145,7 @@ public class CreateActivity extends AppCompatActivity {
 /////// Decrementation du temps de travail
     public void ButtonLess(View view) {
         int index = (int)view.getTag();
-        if (tempsTravail[index]> 0){
+        if (tempsTravail[index]> 1){
             tempsTravail[index] = tempsTravail[index]-1;
         }
         afficherTempsTravail[index].setText(String.valueOf(tempsTravail[index]));
